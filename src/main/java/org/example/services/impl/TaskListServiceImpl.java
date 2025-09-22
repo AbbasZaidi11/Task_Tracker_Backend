@@ -6,10 +6,7 @@ import org.example.services.TaskListService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class TaskListServiceImpl implements TaskListService {
@@ -65,6 +62,18 @@ public class TaskListServiceImpl implements TaskListService {
         exisitingTaskList.setUpdated(LocalDateTime.now());
 
         return taskListRepository.save(exisitingTaskList);
+    }
+
+    @Override
+    public void deleteTaskList(UUID taskListId) {
+        if(null == taskListId){
+            throw new IllegalArgumentException("You cannot delete a tasklist without giving its taskListId!");
+        }
+       try{
+            taskListRepository.deleteById(taskListId);
+       }catch(org.springframework.dao.EmptyResultDataAccessException ex){
+           throw new NoSuchElementException("Task list not found: " + taskListId);
+       }
     }
 
 }

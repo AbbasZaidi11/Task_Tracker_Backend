@@ -13,6 +13,5 @@ public record TaskDto(
         LocalDateTime dueDate,
         TaskPriority priority,
         TaskStatus status) {
-
 }
 
