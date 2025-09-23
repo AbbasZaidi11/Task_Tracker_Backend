@@ -1,5 +1,6 @@
 package org.example.services.impl;
 
+import jakarta.transaction.Transactional;
 import org.example.entities.TaskList;
 import org.example.repositories.TaskListRepository;
 import org.example.services.TaskListService;
@@ -20,6 +21,7 @@ public class TaskListServiceImpl implements TaskListService {
         return taskListRepository.findAll();
     }
 
+    @Transactional
     @Override
     public TaskList createTaskList(TaskList taskList) {
         // this is the part where we are stuffing are shit into the db
@@ -46,6 +48,7 @@ public class TaskListServiceImpl implements TaskListService {
          return taskListRepository.findById(id);
     }
 
+    @Transactional
     @Override
     public TaskList updateTaskList(UUID taskListId, TaskList taskList) {
         if(null == taskList.getId()){
@@ -64,6 +67,7 @@ public class TaskListServiceImpl implements TaskListService {
         return taskListRepository.save(exisitingTaskList);
     }
 
+    @Transactional
     @Override
     public void deleteTaskList(UUID taskListId) {
         if(null == taskListId){
